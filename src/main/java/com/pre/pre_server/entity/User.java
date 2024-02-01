@@ -31,7 +31,6 @@ public class User implements UserDetails {
     private int week;
     private int day;
     private String b_name;
-    //private List supplements;
     private int d_day;
 
     @Enumerated(EnumType.STRING)
@@ -54,7 +53,6 @@ public class User implements UserDetails {
         this.week = week;
         this.day = day;
         this.b_name = b_name;
-        //this.supplements = supplements;
         this.d_day = d_day;
         this.role = role;
     }
@@ -66,11 +64,6 @@ public class User implements UserDetails {
         List<GrantedAuthority> auth = new ArrayList<>();
         auth.add(new SimpleGrantedAuthority(role.name()));
         return auth;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
     }
 
     @Override

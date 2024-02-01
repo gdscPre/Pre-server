@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @Builder
@@ -21,7 +20,6 @@ public class JoinRequestDto {
     private int week;
     private int day;
     private String b_name;
-    private List supplements;
     private Role role;
 
 
@@ -30,6 +28,10 @@ public class JoinRequestDto {
         return User.builder()
                 .email(email)
                 .password(password)
+                .name(name)
+                .week(week)
+                .day(day)
+                .b_name(b_name)
                 .role(Role.ROLE_USER)
                 .build();
     }
