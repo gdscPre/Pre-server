@@ -22,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public Long join(JoinRequestDto requestDto) {
         //이메일 중복 검사
@@ -44,7 +44,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 비밀번호입니다");
         }
 
-        String accessToken = jwtTokenProvider.createAccessToken(user.getUsername(), user.getRole().name());
+        String accessToken = jwtTokenProvider.createAccessToken(user.getEmail(), user.getRole().name());
         String refreshToken = jwtTokenProvider.createRefreshToken();
 
         user.updateRefreshToken(refreshToken);
