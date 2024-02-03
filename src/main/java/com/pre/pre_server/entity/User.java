@@ -1,6 +1,7 @@
 package com.pre.pre_server.entity;
 
 
+import com.pre.pre_server.mypage.Dto.ChangeInfoRequestDto;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import lombok.Builder;
@@ -38,6 +39,12 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public void updateInfo(ChangeInfoRequestDto requestDto){
+        this.b_name = requestDto.getB_name();
+        this.week = requestDto.getWeek();
+        this.day = requestDto.getDay();
+    }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);

@@ -2,7 +2,6 @@ package com.pre.pre_server.authentication.Controller;
 
 import com.pre.pre_server.authentication.Dto.JoinRequestDto;
 import com.pre.pre_server.authentication.Dto.LoginRequestDto;
-import com.pre.pre_server.authentication.Jwt.JwtTokenProvider;
 import com.pre.pre_server.authentication.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
