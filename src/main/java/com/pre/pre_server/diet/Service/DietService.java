@@ -27,13 +27,13 @@ public class DietService {
 
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1"); /*URL*/
 
-        urlBuilder.append("?serviceKey=" + secretKey); /*Service Key*/
-        urlBuilder.append("&desc_kor=" + URLEncoder.encode("바나나칩", "UTF-8")); /*식품이름*/
-        urlBuilder.append("&pageNo=1"); /*페이지번호*/
-        urlBuilder.append("&numOfRows=10"); /*한 페이지 결과 수*/
-        urlBuilder.append("&bgn_year=2017"); /*구축년도*/
-        urlBuilder.append("&animal_plant=" + URLEncoder.encode("(유)돌코리아", "UTF-8")); /*가공업체*/
-        urlBuilder.append("&type=xml"); /*응답데이터 형식(xml/json) Default: xml*/
+        urlBuilder.append("?serviceKey=" + secretKey); //Service Key
+        urlBuilder.append("&desc_kor=" + URLEncoder.encode("바나나칩", "UTF-8")); //식품이름
+        urlBuilder.append("&pageNo=1"); //페이지번호
+        urlBuilder.append("&numOfRows=10"); //한 페이지 결과 수
+        urlBuilder.append("&bgn_year=2017"); //구축년도
+        urlBuilder.append("&animal_plant=" + URLEncoder.encode("(유)돌코리아", "UTF-8")); //가공업체
+        urlBuilder.append("&type=" + URLEncoder.encode("json", "UTF-8")); //응답데이터 형식(xml/json) Default: xml
 
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
