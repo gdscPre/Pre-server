@@ -23,8 +23,7 @@ public class DietController {
     }
 
     @GetMapping("list")
-    public void getFood() throws IOException, ParseException {
-        dietService.getFood();
-        //return dietService.getFood();
+    public DietResponseDto getFood() throws IOException, ParseException {
+        return dietService.getFood();
     }
 }
