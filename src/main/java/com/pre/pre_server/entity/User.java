@@ -33,9 +33,13 @@ public class User implements UserDetails {
     private int day;
     private String b_name;
     private int d_day;
+
     @ElementCollection
     @CollectionTable(name = "user_supplements", joinColumns = @JoinColumn(name = "user_id", nullable = true))
     private List<String> supplements;
+
+    @OneToMany(mappedBy = "user")
+    private List<DietRecord> dietRecords = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;
