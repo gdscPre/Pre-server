@@ -1,12 +1,13 @@
 package com.pre.pre_server.diet.Controller;
 
 
+import com.pre.pre_server.diet.Dto.DietRequestDto;
 import com.pre.pre_server.diet.Dto.DietResponseDto;
 import com.pre.pre_server.diet.Service.DietService;
+import com.pre.pre_server.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
@@ -22,8 +23,23 @@ public class DietController {
         this.dietService = dietService;
     }
 
-    @GetMapping("list")
+    //식단 목록
+    @GetMapping("/list")
     public DietResponseDto getFood() throws IOException, ParseException {
         return dietService.getFood();
     }
+
+    //식단 기록(선택)
+    @PostMapping("/select")
+    public void selectDiet(@AuthenticationPrincipal User user, @RequestBody DietRequestDto requestDto) {
+        dietService.recordDiet(user, requestDto);
+    }
+
+    //식단 기록(직접)
+    @PostMapping("/record")
+    public void recordDiet(@AuthenticationPrincipal User user, @RequestBody DietRequestDto requestDto) {
+        dietService.recordDiet(user, requestDto);
+    }
+
+
 }
