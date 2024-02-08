@@ -1,6 +1,7 @@
 package com.pre.pre_server.diet.Controller;
 
 
+import com.pre.pre_server.diet.Dto.DietAnalysisDto;
 import com.pre.pre_server.diet.Dto.DietRequestDto;
 import com.pre.pre_server.diet.Dto.DietResponseDto;
 import com.pre.pre_server.diet.Service.DietService;
@@ -39,6 +40,12 @@ public class DietController {
     @PostMapping("/record")
     public void recordDiet(@AuthenticationPrincipal User user, @RequestBody DietRequestDto requestDto) {
         dietService.recordDiet(user, requestDto);
+    }
+
+    //식단 분석
+    @GetMapping("/analysis")
+    public DietAnalysisDto getAnalysis(@AuthenticationPrincipal User user) {
+        return dietService.analysisDiet(user);
     }
 
 
