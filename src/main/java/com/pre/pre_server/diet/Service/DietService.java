@@ -1,5 +1,6 @@
 package com.pre.pre_server.diet.Service;
 
+import com.pre.pre_server.diet.Dto.DietAnalysisDto;
 import com.pre.pre_server.diet.Dto.DietRequestDto;
 import com.pre.pre_server.diet.Dto.DietResponseDto;
 import com.pre.pre_server.entity.DietRecord;
@@ -21,6 +22,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -87,7 +92,7 @@ public class DietService {
         float NUTR_CONT3 = parsingValue((String) dataObject.get("NUTR_CONT3"));
         float NUTR_CONT5 = parsingValue((String) dataObject.get("NUTR_CONT5"));
 
-        DietResponseDto response = new DietResponseDto(DESC_KOR, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3, NUTR_CONT5);
+        DietResponseDto response = new DietResponseDto(DESC_KOR, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3);
 
         return response;
 
@@ -102,12 +107,48 @@ public class DietService {
         }
     }
 
-    // 식단 기록
+    //식단 기록
     @Transactional
     public void recordDiet(User user, DietRequestDto dietRequestDto) {
         DietRecord dietRecord = dietRequestDto.toEntity(user);
 
         dietRecordRepository.save(dietRecord);
+    }
+
+    //식단 분석
+    @Transactional
+    public DietAnalysisDto analysisDiet(User user) {
+
+        // 오늘 날짜인 데이터 목록 찾아서 저장
+        LocalDateTime start = LocalDateTime.now().with(LocalTime.MIN);
+        LocalDateTime end = LocalDateTime.now().with(LocalTime.MAX);
+
+        List<DietRecord> entity_list = dietRecordRepository.findByUserAndTimeBetween(user, start, end);
+
+        List<DietRequestDto> food_list = entity_list.stream()
+                .map(record -> DietRequestDto.builder()
+                        .name(record.getName())
+                        .calories(record.getCalories())
+                        .carbs(record.getCarbs())
+                        .protein(record.getProtein())
+                        .build())
+                .collect(Collectors.toList());
+
+        // 찾은 데이터 합하기
+        float sum_calories = 0;
+        float sum_carbs = 0;
+        float sum_protein = 0;
+
+        for(int i=0; i<food_list.size(); i++) {
+            sum_calories += food_list.get(i).getCalories();
+            sum_carbs += food_list.get(i).getCarbs();
+            sum_protein += food_list.get(i).getProtein();
+        }
+
+        // dto에 담기
+        DietAnalysisDto dietAnalysisDto = new DietAnalysisDto(food_list, sum_calories, sum_carbs, sum_protein);
+
+        return dietAnalysisDto;
     }
 
 
