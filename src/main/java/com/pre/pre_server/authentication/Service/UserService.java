@@ -1,10 +1,10 @@
 package com.pre.pre_server.authentication.Service;
 
-import com.pre.pre_server.authentication.Dto.JoinRequestDto;
-import com.pre.pre_server.authentication.Dto.LoginRequestDto;
-import com.pre.pre_server.authentication.Dto.TokenResponseDto;
+import com.pre.pre_server.authentication.Dto.*;
 import com.pre.pre_server.authentication.Jwt.JwtTokenProvider;
+import com.pre.pre_server.entity.Supplement;
 import com.pre.pre_server.entity.User;
+import com.pre.pre_server.repository.SupplementRepository;
 import com.pre.pre_server.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +15,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
     private final UserRepository userRepository;
+    private final SupplementRepository supplementRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -30,8 +33,13 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "중복된 이메일입니다");
         }
         User user = userRepository.save(requestDto.toEntity());
+
         //비밀번호 암호화
         user.encodePassword(passwordEncoder);
+
+        // Supplement 저장
+        List<Supplement> supplements = requestDto.toSupplementEntities(user);
+        supplementRepository.saveAll(supplements);
 
         return user.getId();
     }
