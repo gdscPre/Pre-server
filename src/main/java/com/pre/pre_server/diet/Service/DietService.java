@@ -123,7 +123,7 @@ public class DietService {
 
         List<DietRequestDto> food_list = entity_list.stream()
                 .map(record -> DietRequestDto.builder()
-                        .name(record.getName())
+                        .name(record.getFood_name())
                         .calories(record.getCalories())
                         .carbs(record.getCarbs())
                         .protein(record.getProtein())

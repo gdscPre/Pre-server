@@ -49,7 +49,7 @@ public class JoinRequestDto {
         }
 
         return supplements.stream()
-                .map(supplementName -> Supplement.builder().name(supplementName).user(user).build())
+                .map(supplementName -> Supplement.builder().supple_name(supplementName).user(user).build())
                 .collect(Collectors.toList());
     }
 
