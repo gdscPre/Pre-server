@@ -16,7 +16,7 @@ public class SupplementRecord {
     @Column(name = "record_id")
     private Long id;
 
-    private LocalDateTime supple_time;
+    private LocalDateTime time;
 
     private boolean is_checked;
 
@@ -26,8 +26,8 @@ public class SupplementRecord {
     private Supplement supplement;
 
     @Builder
-    public SupplementRecord(LocalDateTime supple_time, boolean is_checked, Supplement supplement) {
-        this.supple_time = supple_time;
+    public SupplementRecord(LocalDateTime time, boolean is_checked, Supplement supplement) {
+        this.time = time;
         this.is_checked = is_checked;
         this.supplement = supplement;
     }
