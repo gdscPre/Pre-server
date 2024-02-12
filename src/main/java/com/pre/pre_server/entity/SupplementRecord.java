@@ -31,4 +31,8 @@ public class SupplementRecord {
         this.is_checked = is_checked;
         this.supplement = supplement;
     }
+
+    public void change_isChecked(boolean is_checked) {
+        this.is_checked = is_checked;
+    }
 }
