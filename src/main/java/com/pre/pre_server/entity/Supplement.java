@@ -18,7 +18,7 @@ public class Supplement {
     @Column(name = "supplement_id")
     private Long id;
 
-    private String name;
+    private String supple_name;
 
     @OneToMany(mappedBy = "supplement")
     private List<SupplementRecord> supplementRecords = new ArrayList<>();
@@ -29,8 +29,8 @@ public class Supplement {
     private User user;
 
     @Builder
-    public Supplement(String name, User user) {
-        this.name = name;
+    public Supplement(String supple_name, User user) {
+        this.supple_name = supple_name;
         this.user = user;
     }
 }

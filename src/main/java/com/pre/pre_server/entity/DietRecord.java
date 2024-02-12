@@ -18,7 +18,7 @@ public class DietRecord {
     @Column(name = "diet_id")
     private Long id;
 
-    private String name;
+    private String food_name;
 
     private LocalDateTime time;
 
@@ -34,8 +34,8 @@ public class DietRecord {
     private User user;
 
     @Builder
-    public DietRecord(String name, LocalDateTime time, float calories, float carbs, float protein, User user) {
-        this.name = name;
+    public DietRecord(String food_name, LocalDateTime time, float calories, float carbs, float protein, User user) {
+        this.food_name = food_name;
         this.time = time;
         this.calories = calories;
         this.carbs = carbs;
