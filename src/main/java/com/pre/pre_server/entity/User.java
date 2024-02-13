@@ -3,10 +3,7 @@ package com.pre.pre_server.entity;
 
 import com.pre.pre_server.mypage.Dto.ChangeInfoRequestDto;
 import jakarta.persistence.*;
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class User implements UserDetails {
     @Id
@@ -34,9 +32,8 @@ public class User implements UserDetails {
     private String b_name;
     private int d_day;
 
-    @ElementCollection
-    @CollectionTable(name = "user_supplements", joinColumns = @JoinColumn(name = "user_id", nullable = true))
-    private List<String> supplements;
+    @OneToMany(mappedBy = "user")
+    private List<Supplement> supplements = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<DietRecord> dietRecords = new ArrayList<>();
@@ -60,7 +57,7 @@ public class User implements UserDetails {
 
 
     @Builder
-    private User(String email, String password, String name, int week, int day, String b_name, int d_day, List<String> supplements, Role role){
+    private User(String email, String password, String name, int week, int day, String b_name, int d_day, Role role){
         this.email = email;
         this.password = password;
         this.name = name;
@@ -68,7 +65,6 @@ public class User implements UserDetails {
         this.day = day;
         this.b_name = b_name;
         this.d_day = d_day;
-        this.supplements = supplements;
         this.role = role;
     }
 

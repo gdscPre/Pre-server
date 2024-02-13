@@ -27,7 +27,7 @@ public class DietRequestDto {
 
     public DietRecord toEntity(User user) {
         return DietRecord.builder()
-                .name(name)
+                .food_name(name)
                 .calories(calories)
                 .carbs(carbs)
                 .protein(protein)

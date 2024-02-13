@@ -1,10 +1,7 @@
 package com.pre.pre_server.diet.Service;
 
-import com.pre.pre_server.diet.Dto.DietAnalysisDto;
-import com.pre.pre_server.diet.Dto.DietRequestDto;
-import com.pre.pre_server.diet.Dto.DietResponseDto;
-import com.pre.pre_server.entity.DietRecord;
-import com.pre.pre_server.entity.User;
+import com.pre.pre_server.diet.Dto.*;
+import com.pre.pre_server.entity.*;
 import com.pre.pre_server.repository.DietRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
@@ -90,7 +87,6 @@ public class DietService {
         float NUTR_CONT1 = parsingValue((String) dataObject.get("NUTR_CONT1"));
         float NUTR_CONT2 = parsingValue((String) dataObject.get("NUTR_CONT2"));
         float NUTR_CONT3 = parsingValue((String) dataObject.get("NUTR_CONT3"));
-        float NUTR_CONT5 = parsingValue((String) dataObject.get("NUTR_CONT5"));
 
         DietResponseDto response = new DietResponseDto(DESC_KOR, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3);
 
@@ -127,7 +123,7 @@ public class DietService {
 
         List<DietRequestDto> food_list = entity_list.stream()
                 .map(record -> DietRequestDto.builder()
-                        .name(record.getName())
+                        .name(record.getFood_name())
                         .calories(record.getCalories())
                         .carbs(record.getCarbs())
                         .protein(record.getProtein())
