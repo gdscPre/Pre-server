@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DietService {
 
-    @Value("${diet_secret}")
+    @Value("${diet.secret}")
     private String secretKey;
 
     @Autowired
