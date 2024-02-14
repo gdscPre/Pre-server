@@ -36,14 +36,14 @@ public class SupplementService {
     //영양제 체크하기
     public void supplementCheck(SuppleCheckDto suppleCheckDto) {
 
-        Supplement supplement = suppleCheckDto.getSupplement();
-        LocalDateTime date = suppleCheckDto.getDate();
-        boolean isChecked = suppleCheckDto.is_checked();
-
         // 해당 supplement에 대한 기록 가져오기
-        SupplementRecord supplementRecord = suppleRecordRepository.findBySupplementAndTime(supplement, date);
+        Long supplement_id = suppleCheckDto.getSupplement_id();
+
+        SupplementRecord supplementRecord = suppleRecordRepository.findBySupplementIdAndTimeBetween(supplement_id, start, end);
 
         // is_checked 업데이트
+        boolean isChecked = suppleCheckDto.is_checked();
+
         supplementRecord.change_isChecked(!isChecked);
 
         // 저장

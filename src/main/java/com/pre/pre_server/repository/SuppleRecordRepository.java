@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface SuppleRecordRepository  extends JpaRepository<SupplementRecord, Long> {
-    SupplementRecord findBySupplementAndTime(Supplement supplement, LocalDateTime date);
+    SupplementRecord findBySupplementIdAndTimeBetween(Long supplement_id, LocalDateTime start, LocalDateTime end);
 
     List<SupplementRecord> findByTimeBetween(LocalDateTime start, LocalDateTime end);
 
