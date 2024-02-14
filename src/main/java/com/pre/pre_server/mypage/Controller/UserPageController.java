@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/mypage")
-public class MyPageController {
+public class UserPageController {
     private final UserPageService userPageService;
     //마이페이지 조회
     @GetMapping()
