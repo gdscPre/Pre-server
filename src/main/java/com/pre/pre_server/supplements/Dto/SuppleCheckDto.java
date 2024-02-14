@@ -8,14 +8,13 @@ import java.time.LocalDateTime;
 
 @Data
 public class SuppleCheckDto {
-
-    private Supplement supplement;
+    private Long supplement_id;
     private LocalDateTime date;
     private boolean is_checked;
 
     @Builder
-    public SuppleCheckDto (Supplement supplement, LocalDateTime date, boolean is_checked) {
-        this.supplement = supplement;
+    public SuppleCheckDto (Long supplement_id, LocalDateTime date, boolean is_checked) {
+        this.supplement_id = supplement_id;
         this.date = date;
         this.is_checked = is_checked;
     }
