@@ -25,7 +25,7 @@ jobs:
     # create application.yml
     - name: create application.yml
       run: |
-        cd ./src/main/resources
+        cd ./Pre-server/src/main/resources
         touch ./application.yml
         echo "${{ secrets.APPLICATION_FILE }}" > ./application.yml
       shell: bash
