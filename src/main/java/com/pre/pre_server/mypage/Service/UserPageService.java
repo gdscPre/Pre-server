@@ -33,6 +33,7 @@ public class UserPageService {
 
         UserPageDto userPageDto = UserPageDto.builder()
                 .b_name(user.getB_name())
+                .user_name(user.getName())
                 .week(user.getWeek())
                 .day(user.getDay())
                 .supplements(supplementList)

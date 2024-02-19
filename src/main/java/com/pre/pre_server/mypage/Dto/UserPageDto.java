@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 public class UserPageDto {
     private String b_name;
+    private String user_name;
     private int week;
     private int day;
     private List<Long> supplements;
