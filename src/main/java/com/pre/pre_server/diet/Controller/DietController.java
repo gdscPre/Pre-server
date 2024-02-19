@@ -11,6 +11,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
+
 import org.json.simple.parser.ParseException;
 
 @RestController
@@ -26,7 +28,7 @@ public class DietController {
 
     //식단 목록
     @GetMapping("/list")
-    public DietResponseDto getFood() throws IOException, ParseException {
+    public List<DietResponseDto> getFood() throws IOException, ParseException {
         return dietService.getFood();
     }
 

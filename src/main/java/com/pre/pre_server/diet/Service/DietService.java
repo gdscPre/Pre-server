@@ -21,6 +21,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,14 +36,14 @@ public class DietService {
     private final DietRecordRepository dietRecordRepository;
 
     //음식 데이터 가져오기
-    public DietResponseDto getFood() throws IOException, ParseException {
+    public List<DietResponseDto> getFood() throws IOException, ParseException {
 
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1"); /*URL*/
 
         urlBuilder.append("?serviceKey=" + secretKey); //Service Key
         //urlBuilder.append("&desc_kor=" + URLEncoder.encode("바나나칩", "UTF-8")); //식품이름
-        urlBuilder.append("&pageNo=1"); //페이지번호
-        urlBuilder.append("&numOfRows=10"); //한 페이지 결과 수
+        urlBuilder.append("&pageNo=14"); //페이지번호
+        urlBuilder.append("&numOfRows=20"); //한 페이지 결과 수
         //urlBuilder.append("&bgn_year=2017"); //구축년도
         //urlBuilder.append("&animal_plant=" + URLEncoder.encode("(유)돌코리아", "UTF-8")); //가공업체
         urlBuilder.append("&type=" + URLEncoder.encode("json", "UTF-8")); //응답데이터 형식(xml/json) Default: xml
@@ -81,16 +82,22 @@ public class DietService {
         JSONObject body = (JSONObject) jsonObject.get("body");
         JSONArray items = (JSONArray) body.get("items");
 
-        JSONObject dataObject = (JSONObject) items.get(5);
+        List<DietResponseDto> dietResArr = new ArrayList<>();
 
-        String DESC_KOR = dataObject.get("DESC_KOR").toString();
-        float NUTR_CONT1 = parsingValue((String) dataObject.get("NUTR_CONT1"));
-        float NUTR_CONT2 = parsingValue((String) dataObject.get("NUTR_CONT2"));
-        float NUTR_CONT3 = parsingValue((String) dataObject.get("NUTR_CONT3"));
+        for(int i=0; i<items.size(); i++) {
+            JSONObject dataObject = (JSONObject) items.get(i);
 
-        DietResponseDto response = new DietResponseDto(DESC_KOR, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3);
+            String DESC_KOR = dataObject.get("DESC_KOR").toString();
+            float NUTR_CONT1 = parsingValue((String) dataObject.get("NUTR_CONT1"));
+            float NUTR_CONT2 = parsingValue((String) dataObject.get("NUTR_CONT2"));
+            float NUTR_CONT3 = parsingValue((String) dataObject.get("NUTR_CONT3"));
 
-        return response;
+            DietResponseDto response = new DietResponseDto(DESC_KOR, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3);
+
+            dietResArr.add(response);
+        }
+
+        return dietResArr;
 
     }
 
