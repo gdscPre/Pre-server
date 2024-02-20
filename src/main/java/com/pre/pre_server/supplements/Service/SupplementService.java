@@ -85,6 +85,7 @@ public class SupplementService {
         List<SupplementDto> supplement_list = resultSupplements.stream()
                 .map(record -> SupplementDto.builder()
                         .supplement_id(record.getSupplement().getId())
+                        .supplement_name(record.getSupplement().getSupple_name())
                         .is_checked(record.is_checked())
                         .build())
                 .collect(Collectors.toList());
