@@ -44,7 +44,7 @@ public class SupplementService {
         // is_checked 업데이트
         boolean isChecked = suppleCheckDto.is_checked();
 
-        supplementRecord.change_isChecked(!isChecked);
+        supplementRecord.change_isChecked(isChecked);
 
         // 저장
         suppleRecordRepository.save(supplementRecord);
