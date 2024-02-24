@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/mypage")
+@RequestMapping("/users")
 public class UserPageController {
     private final UserPageService userPageService;
     //마이페이지 조회
-    @GetMapping()
+    @GetMapping("/mypage")
     public UserPageDto getUserInfo(@AuthenticationPrincipal User user) {
         return userPageService.getMyInfo(user);
     }

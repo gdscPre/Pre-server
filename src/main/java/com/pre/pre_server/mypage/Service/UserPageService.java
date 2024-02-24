@@ -41,6 +41,7 @@ public class UserPageService {
         return userPageDto;
     }
 
+    // user정보 수정
     @Transactional
     public ResponseEntity changeInfo(User user, ChangeInfoRequestDto requestDto){
         user.updateInfo(requestDto);
