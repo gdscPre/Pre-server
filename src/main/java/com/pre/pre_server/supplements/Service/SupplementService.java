@@ -39,7 +39,7 @@ public class SupplementService {
         // 해당 supplement에 대한 기록 가져오기
         Long supplement_id = suppleCheckDto.getSupplement_id();
 
-        SupplementRecord supplementRecord = suppleRecordRepository.findBySupplementIdAndTimeBetween(supplement_id, start, end);
+        SupplementRecord supplementRecord = suppleRecordRepository.findBySupplementIdAndTime(supplement_id);
 
         // is_checked 업데이트
         boolean isChecked = suppleCheckDto.is_checked();
